@@ -33,7 +33,7 @@ export default function ZustandMemo() {
 						setInput(e.target.value);
 					}}
 					placeholder="메모를 입력하세요."
-					className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+					className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
 				/>
 				<button
 					type="submit"
