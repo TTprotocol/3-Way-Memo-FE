@@ -2,6 +2,11 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { Memo, initialState } from "@/type/memo";
 import api from "@/api/axios";
 
+export const isConnected = createAsyncThunk("memos/isConnected", async () => {
+	const response = await api.get("/api/connect");
+	return response.data.status;
+});
+
 export const fetchMemos = createAsyncThunk("memos/fetchMemos", async () => {
 	const response = await api.get("/api/memos");
 	return response.data;
@@ -15,17 +20,48 @@ export const addMemo = createAsyncThunk(
 	}
 );
 
+export const updateMemo = createAsyncThunk(
+	"memos/updateMemo",
+	async ({ id, content }: Memo) => {
+		const response = await api.put("/api/memos", { id, content });
+		return response.data;
+	}
+);
+
+export const deleteMemo = createAsyncThunk(
+	"memos/deleteMemo",
+	async (id: number) => {
+		const response = await api.delete(`/api/memos/${id}`);
+		return response.data;
+	}
+);
+
 const memoSlice = createSlice({
 	name: "memos",
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
+			.addCase(
+				isConnected.fulfilled,
+				(state, action: PayloadAction<boolean>) => {
+					state.connected = action.payload;
+				}
+			)
 			.addCase(fetchMemos.fulfilled, (state, action: PayloadAction<Memo[]>) => {
 				state.memos = action.payload;
 			})
 			.addCase(addMemo.fulfilled, (state, action: PayloadAction<Memo>) => {
 				state.memos.unshift(action.payload);
+			})
+			.addCase(updateMemo.fulfilled, (state, action: PayloadAction<Memo>) => {
+				state.memos = state.memos.map((memo) => {
+					if (memo.id === action.payload.id) return (memo = action.payload);
+					else return memo;
+				});
+			})
+			.addCase(deleteMemo.fulfilled, (state, action: PayloadAction<number>) => {
+				state.memos = state.memos.filter((memo) => memo.id !== action.payload);
 			});
 	},
 });

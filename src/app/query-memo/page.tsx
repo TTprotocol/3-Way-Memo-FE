@@ -8,6 +8,18 @@ export default function QueryMemoPage() {
 	const [input, setInput] = React.useState("");
 	const queryClient = useQueryClient();
 
+	const { data: connected, isLoading: isConnectLoading } = useQuery({
+		queryKey: ["dbStatus"],
+		queryFn: async () => {
+			try {
+				const response = await api.get("/api/connect");
+				return response.data.status;
+			} catch (error) {
+				return false;
+			}
+		},
+	});
+
 	// 메모 목록 조회
 	const { data: memos = [], isLoading } = useQuery({
 		queryKey: ["memos"],
@@ -15,6 +27,7 @@ export default function QueryMemoPage() {
 			const response = await api.get("/api/memos");
 			return response.data;
 		},
+		enabled: !!connected,
 	});
 
 	// 메모 추가
@@ -27,7 +40,7 @@ export default function QueryMemoPage() {
 
 	const submit = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (!input.trim()) return;
+		if (!connected || !input.trim()) return;
 
 		mutation.mutate(input);
 		setInput("");
@@ -53,7 +66,7 @@ export default function QueryMemoPage() {
 				/>
 				<button
 					type="submit"
-					className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
+					className="bg-rose-400 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
 				>
 					저장
 				</button>

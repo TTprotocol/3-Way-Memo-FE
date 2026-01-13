@@ -53,7 +53,8 @@ export default function ZustandMemo() {
 						>
 							<p className="text-gray-800 ">{memo.content}</p>
 							<span className="text-xs text-gray-400">
-								{new Date(memo.create_date).toLocaleString()}
+								{memo.create_date &&
+									new Date(memo.create_date).toLocaleString()}
 							</span>
 						</div>
 					))
