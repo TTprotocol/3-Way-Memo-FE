@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux"; // store에 접근하기 위한 훅
 import { Memo } from "@/type/memo";
 import { RootState, AppDispatch } from "@/store/redux/store"; // RootState : 전역 상태 타입, AppDispatch : dispatch 타입
@@ -11,7 +12,7 @@ import {
 	updateMemo,
 	deleteMemo,
 } from "@/store/redux/memoSlice"; // memoSlice에서 정의한 액션들
-import { Pen, Check, X } from "lucide-react";
+import { Home, Pen, Check, X } from "lucide-react";
 
 export default function ReduxMemoPage() {
 	const dispatch = useDispatch<AppDispatch>(); // store.dispatch를 가져온다.
@@ -66,6 +67,9 @@ export default function ReduxMemoPage() {
 
 	return (
 		<main className="max-w-2xl mx-auto p-8">
+			<Link href="/">
+				<Home />
+			</Link>
 			<h1 className="text-3xl font-bold mb-8 text-center">
 				Memo Board (Redux)
 			</h1>
