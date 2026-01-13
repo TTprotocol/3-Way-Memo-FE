@@ -1,63 +1,71 @@
 "use client";
 
 import React from "react";
-import { useMemoStore } from "@/store/zustand/useMemoStore";
+import Link from "next/link";
 
-export default function ZustandMemo() {
-	const [input, setInput] = React.useState("");
-	const { memos, fetchMemos, addMemo } = useMemoStore();
-
-	React.useEffect(() => {
-		fetchMemos();
-	}, [fetchMemos]);
-
-	const submit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!input.trim()) return;
-
-		await addMemo(input);
-		setInput("");
-	};
+export default function Main() {
+	const tools = [
+		{
+			name: "Redux Toolkit",
+			href: "/redux-memo",
+			description: "엄격하고 체계적인 전역 상태 관리",
+			color: "hover:border-purple-500 hover:shadow-purple-500/20",
+			textColor: "text-purple-400",
+		},
+		{
+			name: "Zustand",
+			href: "/zustand-memo",
+			description: "가볍고 유연한 최신 상태 관리",
+			color: "hover:border-amber-500 hover:shadow-amber-500/20",
+			textColor: "text-amber-400",
+		},
+		{
+			name: "TanStack Query",
+			href: "/query-memo",
+			description: "강력한 서버 데이터 동기화",
+			color: "hover:border-rose-500 hover:shadow-rose-500/20",
+			textColor: "text-rose-400",
+		},
+	];
 
 	return (
-		<main className="max-w-2xl mx-auto p-8">
-			<h1 className="text-3xl font-bold mb-8 text-center">
-				Memo Board (Zustand)
-			</h1>
+		<main className="min-h-screen w-full flex flex-col items-center justify-center p-8 bg-slate-950 text-slate-100">
+			<div className="max-w-4xl w-full space-y-12">
+				<header className="text-center space-y-4">
+					<h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+						3-Way Memo Board
+					</h1>
+					<p className="text-slate-400 text-lg">
+						탐색하고 싶은 상태관리 라이브러리를 선택하세요.
+					</p>
+				</header>
 
-			<form onSubmit={submit} className="mb-8 flex gap-2">
-				<input
-					type="text"
-					value={input}
-					onChange={(e) => {
-						setInput(e.target.value);
-					}}
-					placeholder="메모를 입력하세요."
-					className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
-				/>
-				<button
-					type="submit"
-					className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
-				>
-					저장
-				</button>
-			</form>
-			<div className="space-y-4">
-				{memos.length === 0 ? (
-					<p className="text-center text-gray-500">작성된 메모가 없습니다.</p>
-				) : (
-					memos.map((memo) => (
-						<div
-							key={memo.id}
-							className="p-4 bg-white shadow rounded-lg border border-gray-100"
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+					{tools.map((tool) => (
+						<Link
+							key={tool.name}
+							href={tool.href}
+							className={`group relative p-8 rounded-2xl border border-slate-800 bg-slate-900/50 
+                transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl ${tool.color}`}
 						>
-							<p className="text-gray-800 ">{memo.content}</p>
-							<span className="text-xs text-gray-400">
-								{new Date(memo.create_date).toLocaleString()}
-							</span>
-						</div>
-					))
-				)}
+							<div className="flex flex-col h-full justify-between space-y-4">
+								<div>
+									<h2 className={`text-2xl font-bold mb-2 ${tool.textColor}`}>
+										{tool.name}
+									</h2>
+									<p className="text-slate-400 text-sm leading-relaxed">
+										{tool.description}
+									</p>
+								</div>
+								<div className="pt-4">
+									<span className="inline-flex items-center text-xs font-semibold tracking-wider uppercase text-slate-500 group-hover:text-slate-200 transition-colors">
+										입장하기 &rarr;
+									</span>
+								</div>
+							</div>
+						</Link>
+					))}
+				</div>
 			</div>
 		</main>
 	);
