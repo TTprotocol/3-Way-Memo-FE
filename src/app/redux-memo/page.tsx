@@ -36,6 +36,7 @@ export default function ReduxMemoPage() {
 		init();
 	}, [dispatch]);
 
+	// 저장 함수
 	const submit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!input.trim()) return;

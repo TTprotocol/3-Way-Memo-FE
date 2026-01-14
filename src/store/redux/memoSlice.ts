@@ -72,9 +72,14 @@ export default memoSlice.reducer;
  * 개념 정리
  * reducers : slice에서 만드는 동기 액션 처리
  *
- * extraReducers : 외부에서 오는 액션 처리
+ * createSlice
+ *  - slice(상태 조각 + 리듀서 + 액션)를 만드는 함수
+ *  - slice는 store의 어떤 상태를 찾아 변경할 것인지, 어떤 함수를 통해서 바꿀 것인지, 그 함수의 결과값을 어떻게 처리할 것인지를 한 번에 정의한 것이다.
  *
- * createSlice : slice(상태 조각 + 리듀서 + 액션)를 만드는 함수
+ * extraReducers
+ *  - 외부에서 오는 액션 처리
+ *  - 비동기 통신의 3단계 (pending, fulfilled, rejected)에 따른 상태변화를 처리한다.
+ *  - 현재는 성공 단계인 fulfilled만 처리하고 있다.
  *
  * PayloadAction : action.payload 타입을 정확하게 작성할 때 사용
  *
