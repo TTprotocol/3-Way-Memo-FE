@@ -6,15 +6,10 @@ import { useMemoStore } from "@/store/zustand/useMemoStore";
 import { Home, Pen, Check, X } from "lucide-react";
 
 export default function ZustandMemo() {
-	const {
-		connected,
-		memos,
-		isConnect,
-		fetchMemos,
-		addMemo,
-		updateMemo,
-		deleteMemo,
-	} = useMemoStore();
+	const connected = useMemoStore((state) => state.connected);
+	const memos = useMemoStore((state) => state.memos);
+	const { isConnect, fetchMemos, addMemo, updateMemo, deleteMemo } =
+		useMemoStore();
 
 	const [input, setInput] = React.useState("");
 	const [editingId, setEditingId] = React.useState<number | null>(null);
@@ -54,7 +49,7 @@ export default function ZustandMemo() {
 
 	const handleDelete = async (id: number) => {
 		await deleteMemo(id);
-		await fetchMemos();
+		// await fetchMemos();
 	};
 
 	return (
@@ -82,8 +77,8 @@ export default function ZustandMemo() {
 					className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
 				/>
 				<button
-					type="submit"
-					className="bg-amber-400 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+					className="bg-amber-400 text-white px-6 py-3 rounded-lg hover:bg-red-700"
+					disabled={connected}
 				>
 					저장
 				</button>
