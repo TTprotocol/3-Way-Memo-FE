@@ -35,7 +35,7 @@ export const useMemoStore = create<MemoZustandState>((set) => ({
 	deleteMemo: async (id: number) => {
 		const response = await api.delete(`/api/memos/${id}`);
 		set((state) => ({
-			memos: state.memos.filter((item) => item.id !== response.data.id),
+			memos: state.memos.filter((item) => item.id !== Number(response.data.id)),
 		}));
 	},
 }));
