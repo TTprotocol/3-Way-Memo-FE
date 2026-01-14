@@ -5,10 +5,13 @@ export interface Memo {
 }
 
 export interface MemoZustandState {
-	connected?: boolean;
+	connected: boolean;
 	memos: Memo[];
+	isConnect: () => Promise<boolean>;
 	fetchMemos: () => Promise<void>;
 	addMemo: (content: string) => Promise<void>;
+	updateMemo: (id: number, content: string) => Promise<void>;
+	deleteMemo: (id: number) => Promise<void>;
 }
 
 export interface MemoReduxState {
