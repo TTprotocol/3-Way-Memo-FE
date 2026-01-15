@@ -1,6 +1,7 @@
 import "./globals.css";
 import ReduxProvider from "@/store/redux/reduxProvider";
 import QueryProvider from "@/store/query/queryProvider";
+import Snackbar from "@/components/Snackbar";
 
 export default function RootLayout({
 	children,
@@ -12,6 +13,7 @@ export default function RootLayout({
 			<body>
 				<QueryProvider>
 					<ReduxProvider>{children}</ReduxProvider>
+					<Snackbar />
 				</QueryProvider>
 			</body>
 		</html>

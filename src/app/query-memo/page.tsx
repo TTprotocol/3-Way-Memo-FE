@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/api/axios";
+import Link from "next/link";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Home, Pen, Check, X } from "lucide-react";
 
 export default function QueryMemoPage() {
 	const [input, setInput] = React.useState("");
@@ -50,6 +52,9 @@ export default function QueryMemoPage() {
 
 	return (
 		<main className="max-w-2xl mx-auto p-8">
+			<Link href="/">
+				<Home />
+			</Link>
 			<h1 className="text-3xl font-bold mb-8 text-center">
 				Memo Board (Query)
 			</h1>
