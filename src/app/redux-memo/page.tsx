@@ -84,7 +84,7 @@ export default function ReduxMemoPage() {
 					className="flex-1 p-3 border rounded-lg text-white"
 				/>
 				<button
-					className="bg-purple-400 text-white px-6 py-3 rounded-lg hover:bg-red-700"
+					className={`text-white px-6 py-3 rounded-lg hover:bg-purple-700, connected ${connected ? "bg-purple-400" : "bg-gray-500"}`}
 					disabled={connected}
 				>
 					저장
