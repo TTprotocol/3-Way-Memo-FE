@@ -77,8 +77,9 @@ export default function ZustandMemo() {
 					className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
 				/>
 				<button
+					type="submit"
 					className={`text-white px-6 py-3 rounded-lg hover:bg-amber-700 ${connected ? "bg-amber-400" : "bg-gray-500"}`}
-					disabled={connected}
+					disabled={!connected}
 				>
 					저장
 				</button>
